@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mercado Circular | Intercambio de Materiales</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <!-- Barra de navegación -->
+  <nav class="navbar navbar-dark bg-success shadow-sm mb-4">
+    <div class="container d-flex justify-content-between align-items-center">
+      <span class="navbar-brand fw-bold mb-0">♻️ Mercado Circular</span>
+      <div id="barraUsuario" class="d-none d-flex align-items-center text-white">
+        <span id="txtUsuario" class="me-3 fw-semibold"></span>
+        <button id="btnCerrarSesion" class="btn btn-sm btn-outline-light">Cerrar sesión</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container pb-5">
+
+    <!-- 1. VISTA: INICIO DE SESIÓN -->
+    <div id="seccionLogin" class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="card p-4 shadow-sm border-0">
+          <h3 class="text-center text-success mb-2 fw-bold">Iniciar Sesión</h3>
+          <p class="text-muted text-center small mb-4">Intercambio de Materiales Industriales</p>
+          
+          <form id="formLogin">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Rol de acceso</label>
+              <select id="loginRol" class="form-select" required>
+                <option value="fabrica">Fábrica Miembro</option>
+                <option value="admin">Administrador de Red</option>
+              </select>
+            </div>
+
+            <div class="mb-3" id="campoFabrica">
+              <label class="form-label fw-semibold">Nombre de la Fábrica</label>
+              <input type="text" id="loginFabrica" class="form-control" value="Textiles del Bajío S.A." placeholder="Ej. Textiles del Bajío S.A.">
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 fw-bold">Ingresar</button>
+          </form>
+
+          <hr class="my-3">
+          <p class="small text-muted text-center mb-2">Accesos rápidos:</p>
+          <div class="d-flex justify-content-center gap-2">
+            <button type="button" class="btn btn-sm btn-outline-success" onclick="accesoRapido('fabrica', 'Textiles del Bajío S.A.')">Fábrica A</button>
+            <button type="button" class="btn btn-sm btn-outline-primary" onclick="accesoRapido('fabrica', 'Metalmecánica del Bajío S.A.')">Fábrica B</button>
+            <button type="button" class="btn btn-sm btn-outline-dark" onclick="accesoRapido('admin', 'Administrador de Red')">Admin</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. VISTA: PANEL DE FÁBRICA MIEMBRO -->
+    <div id="seccionFabrica" class="d-none">
+      <div class="row">
+        <!-- Formulario para publicar -->
+        <div class="col-md-5 mb-4">
+          <div class="card p-4 shadow-sm border-0">
+            <h4 class="text-success fw-bold mb-3">📢 Publicar Material</h4>
+            <form id="formAnuncio">
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Tipo de anuncio</label>
+                <select id="tipoAnuncio" class="form-select" required>
+                  <option value="Oferta">Oferta (Material sobrante disponible)</option>
+                  <option value="Solicitud">Solicitud (Material que necesito)</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Material / Título</label>
+                <input type="text" id="tituloAnuncio" class="form-control" placeholder="Ej. 50kg de algodón sobrante" required>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Cantidad</label>
+                <input type="text" id="cantidadAnuncio" class="form-control" placeholder="Ej. 50 kg / 100 conos" required>
+              </div>
+
+              <button type="submit" class="btn btn-success w-100 fw-bold">Publicar Anuncio</button>
+            </form>
+          </div>
+
+          <!-- Mis anuncios publicados -->
+          <div class="card p-3 shadow-sm border-0 mt-3">
+            <h5 class="fw-bold text-secondary mb-2">📌 Mis Anuncios Publicados</h5>
+            <div id="listaMisAnuncios" class="small"></div>
+          </div>
+        </div>
+
+        <!-- Anuncios de otras fábricas -->
+        <div class="col-md-7">
+          <h4 class="fw-bold mb-3">🌱 Anuncios de Otras Fábricas (Aprobados)</h4>
+          <div id="listaOtrasFabricas"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. VISTA: PANEL DE ADMINISTRADOR DE RED -->
+    <div id="seccionAdmin" class="d-none">
+      <div class="card p-4 shadow-sm border-0">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="text-dark fw-bold mb-0">🛡️ Moderación de Anuncios en la Red</h4>
+          <span class="badge bg-secondary p-2" id="totalAnunciosAdmin">0 anuncios</span>
+        </div>
+        <p class="text-muted small">Como Administrador de Red, puedes revisar todos los anuncios y cambiar su estado a "Aprobado" o "Rechazado".</p>
+        
+        <div id="listaAdmin"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/miJS.js"></script>
+</body>
+</html>
